@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Open Graph meta tags -->
+    <meta property="og:title" content="Get Your 'I Will Be There' Flyer!" />
+    <meta
+      property="og:description"
+      content="🎉 Create your flyer in 5 seconds and show everyone you'll be there!"
+    />
+    <meta
+      property="og:image"
+      content="https://hallalujah-flyer-generator.vercel.app/asset/IwbT.webp"
+    />
+    <meta
+      property="og:url"
+      content="https://hallalujah-flyer-generator.vercel.app/"
+    />
+    <meta property="og:type" content="website" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Get Your 'I Will Be There' Flyer!" />
+    <meta
+      name="twitter:description"
+      content="🎉 Create your flyer in 5 seconds and show everyone you'll be there!"
+    />
+    <meta
+      name="twitter:image"
+      content="https://hallalujah-flyer-generator.vercel.app/asset/IwbT.webp"
+    />
+
+    <link rel="icon" href="asset/logoTest.png" type="image/png" />
+
+    <title>I Will Be There!</title>
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fontfaceobserver/2.1.0/fontfaceobserver.standalone.js"></script>
+
+    <link rel="stylesheet" href="style.css" />
+  </head>
+
+  <body>
+    <!-- Popup Modal -->
+    <div
+      id="invitePopup"
+      style="
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.7);
+        align-items: center;
+        justify-content: center;
+        z-index: 1000;
+      "
+    >
+      <div
+        style="
+          background: white;
+          padding: 2rem;
+          border-radius: 10px;
+          max-width: 400px;
+          text-align: center;
+          position: relative;
+        "
+      >
+        <h2>Thank you!</h2>
+        <p>
+          We've saved a special seat for you 🎉<br />Invite your friends to join
+          too!
+        </p>
+        <input
+          type="text"
+          id="inviteLink"
+          value="https://hallalujah-flyer-generator.vercel.app/"
+          readonly
+          style="
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+          "
+        />
+        <button
+          onclick="copyInviteLink()"
+          style="
+            background: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+          "
+        >
+          Copy Link
+        </button>
+        <br /><br />
+        <button
+          onclick="closePopup()"
+          style="
+            background: #ccc;
+            color: black;
+            padding: 8px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+          "
+        >
+          Close
+        </button>
+      </div>
+    </div>
+
+    <div class="logo_cont">
+      <img src="asset/logoTest.png" alt="WTK_logo" class="logo" />
+      <h2>Live Concert Flyer !!</h2>
+    </div>
+
+    <div id="canvas-container">
+      <canvas id="flyerCanvas"></canvas>
+    </div>
+
+    <div class="control">
+      <div class="action-buttons">
+        <button onclick="undoChanges()" id="action1">⤺ Undo</button>
+        <button onclick="previewFlyer()" id="action2">👁 Preview</button>
+      </div>
+
+      <h3>I WILL BE THERE FLYER</h3>
+
+      <div class="input-wrapper">
+        <span class="icon">?</span>
+        <input type="text" id="nameInput" placeholder="Add Name" />
+      </div>
+      <br />
+      <hr />
+
+      <div style="margin: 2rem 0rem; text-align: left">
+        <label>Upload Passport Photo:</label><br />
+        <input type="file" id="photoUpload" accept="image/*" /><br />
+      </div>
+
+      <div class="action-buttons">
+        <button onclick="downloadFlyer()">Download Your Flyer</button>
+        <button onclick="shareFlyer()">🔗 Share</button>
+      </div>
+    </div>
+
+    <div
+      class="instruction-section"
+      style="
+        margin: 2rem auto;
+        max-width: 700px;
+        padding: 1.5rem;
+        background: #f9f9f9;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+        font-family: 'Montserrat', sans-serif;
+      "
+    >
+      <h2 style="text-align: center">📌 Instructions</h2>
+      <ol style="line-height: 1.8; font-size: 1rem; color: #333">
+        <li>
+          Click the <strong>Upload Passport Photo</strong> button and select
+          your image.
+        </li>
+        <li>Enter your <strong>name</strong> in the input box provided.</li>
+        <li>
+          Click <strong>Share</strong> to generate and copy a shareable link.
+        </li>
+        <li>
+          After sharing, you’ll be able to <strong>download</strong> the flyer
+          image.
+        </li>
+      </ol>
+    </div>
+
+    <!-- Main Flyer Section -->
+    <h2>Main Flyer</h2>
+    <div class="card">
+      <img
+        id="mainFlyerImage"
+        src="asset/back.jpg"
+        alt="Main Flyer"
+        class="main-flyer"
+      />
+
+      <div class="action-buttons">
+        <button onclick="downloadMainFlyer()">⬇ Download</button>
+        <button onclick="shareFlyer()">🔗 Share</button>
+      </div>
+    </div>
+
+    <script>
+      const showVideoBtn = document.getElementById("showVideoBtn");
+      const videoContainer = document.getElementById("videoContainer");
+
+      showVideoBtn.addEventListener("click", () => {
+        videoContainer.style.display = "block";
+        showVideoBtn.style.display = "none"; // hide button after click
+      });
+    </script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fontfaceobserver/2.1.0/fontfaceobserver.standalone.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fabric.js/5.2.4/fabric.min.js"></script>
+    <script src="script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+    <audio
+      id="celebrationSound"
+      src="asset/sound-effect-crowd-applause-and-cheering-237756.mp3"
+      preload="auto"
+    ></audio>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  </body>
+</html>
