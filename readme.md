@@ -40,7 +40,7 @@ This saves hours of manual design work and gives everyone a beautiful, consisten
 ## 🚀 Live Demo
 
 You can try it here:  
-👉 **[Launch Flyer Creator](https://hallalujah-flyer-generator.vercel.app/)**
+👉 **[Launch Flyer Creator](https://fafc-live-concert.vercel.app/)**
 
 ---
 

@@ -188,7 +188,7 @@ async function shareFlyer() {
       await navigator.share({
         title: 'Get Your "I Will Be There" Flyer!',
         text: "🎉 Create your flyer in 5 seconds and show everyone you'll be there!",
-        url: "https://hallalujah-flyer-generator.vercel.app/",
+        url: "https://fafc-live-concert.vercel.app/",
       });
       hasShared = true; // <-- NEW: Mark that sharing was successful
       Swal.fire({
@@ -208,7 +208,7 @@ async function shareFlyer() {
       });
     }
   } else {
-    window.open("https://hallalujah-flyer-generator.vercel.app/", "_blank");
+    window.open("https://fafc-live-concert.vercel.app/", "_blank");
   }
 }
 
@@ -238,7 +238,7 @@ async function shareMainFlyer() {
       await navigator.share({
         files: [file],
         title: "I Will Be There! (Main Flyer)",
-        text: `🎉 Join us!\n\nCreate your own flyer here:\nhttps://hallalujah-flyer-generator.vercel.app/`,
+        text: `🎉 Join us!\n\nCreate your own flyer here:\nhttps://fafc-live-concert.vercel.app/`,
       });
       showInvitePopup();
     } catch (error) {
